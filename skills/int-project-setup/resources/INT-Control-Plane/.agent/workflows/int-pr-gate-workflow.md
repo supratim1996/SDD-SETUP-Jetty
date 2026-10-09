@@ -187,7 +187,12 @@ The system **STRICTLY STOPS** and refuses to proceed to downstream steps (`.plan
    - **4. Project Status Board (`.ai-context/status.md`)**: Updated active spec status and daily log.
    - **5. Prompt History (`.ai-context/prompt_history.md`)**: Appended turn log entry (STRICT APPEND-ONLY RULE).
 
-6. **Continuous Review Loop**:
+6. **Post-Gate 2 CodeGraph Synchronization**:
+   - Upon Gate 2 Approval, automatically trigger CodeGraph re-indexing.
+   - Perform incremental sync (`codegraph sync --incremental`) by default; fallback to full rebuild (`codegraph index --force`) on error.
+   - Update `CODEGRAPH_SYNC_STATUS` in `.ai-context/status.md` and log non-silent errors if sync fails.
+
+7. **Continuous Review Loop**:
    - After completing the review for the selected spec, **automatically loop back** to display the updated listing of remaining pending PR reviews assigned to that reviewer!
    - If no more pending reviews remain, display:
      > *"All assigned PR reviews have been completed! Would you like to select an approved spec to start development on?"*

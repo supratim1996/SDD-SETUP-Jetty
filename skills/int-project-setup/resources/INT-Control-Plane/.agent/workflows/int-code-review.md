@@ -18,4 +18,7 @@ Check if the code properly handles edge cases, network failures, and unexpected 
 ## 4. Maintainability
 Point out overly complex functions, tight coupling, or violations of the DRY (Don't Repeat Yourself) principle. Suggest better naming conventions if applicable.
 
+## 5. CodeGraph Structural Impact & Task Traceability
+Verify that generated implementation functions/classes include required task traceability annotations (`@task`, `@requirement`, `@spec`, `@description`), and verify that implementation changes align with CodeGraph call graphs without introducing unexpected structural dependencies.
+
 After providing your analysis, offer specific, isolated code snippets showing how to fix the most critical issues you found.

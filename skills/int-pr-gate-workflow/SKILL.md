@@ -63,3 +63,4 @@ Upon PR review completion, synchronize outcome across:
 3. Governing Requirement/Spec (`.ai-context/BRD.md` & `.ai-context/assumptions.md` for Gate 0; `.ai-context/specs/<slug>.spec.md` for Gate 1/2)
 4. Project Status Board (`.ai-context/status.md`)
 5. Prompt History (`.ai-context/prompt_history.md`)
+6. Post-Gate 2 CodeGraph Sync (`codegraph sync --incremental`, full rebuild fallback on error)

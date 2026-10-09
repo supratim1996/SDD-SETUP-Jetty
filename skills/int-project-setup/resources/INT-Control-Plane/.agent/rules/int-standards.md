@@ -41,4 +41,10 @@ You are assisting an engineering team at INT. Whenever you write, refactor, or s
 * Approved Spec Development Lifecycle: Approved specs proceed through Plan (`.plan.md`) -> Tasks (`.tasks.md`) -> Test Cases (`.test_cases.md`) -> TDD RED (`tests/`) -> TDD GREEN (`src/`) -> Test Verification -> Gate 2 Review (`.ai-context/pr_reviews/GATE2-<slug>-*.md`).
 * Change Request Keyword Rule: Trigger formal Change Request workflow (Spec revision & Gate 1 re-approval) ONLY when prompt explicitly contains "Change Request" or "CR". Prompts without "Change Request" are processed as Development-Related Fixes / UI Bug Fixes under the active approved spec.
 
+## 7. CodeGraph Structural Intelligence & Task Traceability
+* CodeGraph SQLite is the authoritative structural representation of the codebase (symbols, AST, dependencies, call paths, impact analysis). Vector DB remains separate for BRD/SDD semantic knowledge.
+* Mandatory CodeGraph pre-indexing for existing/legacy codebases before reverse engineering (`int-reverse-engine-workflow`).
+* Mandatory task-to-code traceability comments (`@task`, `@requirement`, `@spec`, `@description`) on generated implementation functions/classes.
+* Post-Gate 2 incremental CodeGraph synchronization (`codegraph sync --incremental`, full rebuild fallback on error) with explicit failure tracking (`CODEGRAPH_SYNC_STATUS = FAILED`).
+
 

@@ -19,8 +19,8 @@ For the full detailed specification, templates, and execution protocols, see:
      - **Option 1 (Auto-Detect)**: Inspect codebase to auto-populate `project_context.md` and `architecture.md` without asking redundant stack questions.
      - **Option 2 (Manual Entry)**: Answer interactive discovery questions to manually define or verify technology stack & architecture parameters.
    - **Bypass CLI Scaffolding**: In both options for existing codebases, CLI scaffolding (`create-vite`, `@nestjs/cli`, etc.) is completely bypassed.
-   - For brand new empty projects: Confirm Project Type, Architecture Style, Tech Stack, DB, ORM, and Reviewer Roster before scaffolding.
-   - **Governance Aspect & Reviewer Roster Validation (MANDATORY)**: Inspect `.ai-context/project_context.md` and `.ai-context/constitution.md`. If TL, PM, or reviewer emails are missing or default placeholders (`<email@domain.com>`), prompt the developer to input real emails and update `project_context.md` and `constitution.md` automatically!
+   - For brand new empty projects: Confirm Project Type, Architecture Style, Tech Stack, DB, ORM, and Reviewer Roster (Gate 0 BRD Reviewer, Gate 1 Spec Reviewer, Gate 2 Code Reviewer) before scaffolding.
+   - **Governance Aspect & Reviewer Roster Validation (MANDATORY)**: Inspect `.ai-context/project_context.md` and `.ai-context/constitution.md`. If Gate 0, Gate 1, or Gate 2 reviewer names/emails are missing or contain default placeholders (`<email@domain.com>`), prompt the developer to input real emails for all 3 PR gates and update `project_context.md` and `constitution.md` automatically!
 2. **Native OS Bulk Copy INT Control Plane & Setup Governance**:
    - Execute bulk native OS copy of `resources/INT-Control-Plane/.agent/` to `.agent/` (Excludes `int-sync-global-skills.md` which is strictly restricted to master admin).
    - Auto-generate `AGENTS.md` in workspace root for vendor-agnostic governance.

@@ -90,10 +90,13 @@ Every extracted requirement and assumption MUST be classified by evidence source
 Workspace Root (ALL Folders & Sub-directories)
        │
        ▼
+CodeGraph SQLite AST Pre-Scan (.ai-context/codegraph.sqlite)
+       │
+       ▼
 TIER 1: Deterministic Scan & Filename Pattern Identifier (0 LLM Tokens)
        │
        ▼
-TIER 2: Evidence Classifier & Semantic Extraction
+TIER 2: Evidence Classifier & BRD + CodeGraph Correlation Analysis
        │
        ▼
 Generate / Update .ai-context/BRD.md & .ai-context/assumptions.md

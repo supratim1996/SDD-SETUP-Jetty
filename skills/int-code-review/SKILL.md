@@ -11,3 +11,4 @@ Execute a rigorous code review covering:
 3. Test Suite Integrity (All unit and integration tests passing GREEN)
 4. Performance & Reliability (No blocking main thread calls, resource leak prevention)
 5. Architecture Compliance (Matches .ai-context/architecture.md boundaries)
+6. CodeGraph & Traceability Compliance (Task comments `@task`, `@requirement`, `@spec`, `@description` present and valid; CodeGraph call graph impact verified)

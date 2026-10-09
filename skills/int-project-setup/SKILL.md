@@ -42,8 +42,10 @@ Before prompting or creating any artifacts, the agent **MUST FIRST INSPECT THE W
 5. **Database & ORM Layer**: (e.g., PostgreSQL + Sequelize / Prisma / Mongoose / TypeORM).
 6. **Authentication & Security Strategy**: (e.g., JWT / OAuth2).
 7. **Deployment Target**: (e.g., Docker / AWS / Vercel).
-8. **Gate 1 Reviewer(s)**: Project Manager(s) / Tech Lead(s) names & emails.
-9. **Gate 2 Reviewer(s)**: Technical Lead(s) / Senior Developer(s) names & emails.
+8. **Gate 0 Reviewer(s)**: Business Analyst / Project Manager / Product Owner names & emails (BRD Review).
+9. **Gate 1 Reviewer(s)**: Project Manager / Tech Lead / Product Owner names & emails (Spec Review).
+10. **Gate 2 Reviewer(s)**: Technical Lead / Architect / Senior Developer names & emails (Code Review).
+
 
 ---
 
@@ -196,7 +198,7 @@ When the user runs `/int-project-setup` on a project that is **already set up or
 
 5. **Governance Aspect & Reviewer Roster Validation & Auto-Correction**:
    - The system inspects `.ai-context/project_context.md` and `.ai-context/constitution.md`.
-   - If any assigned reviewer email fields (Technical Lead / Architect, Project Manager / Product Owner, Gate 1 Reviewers, Gate 2 Reviewers) are missing, empty, or contain default placeholders (`<email@domain.com>`, `<Name>`), the system prompts the user to input real names and emails and updates `.ai-context/project_context.md` and `.ai-context/constitution.md` automatically!
+   - If any assigned reviewer email fields (Gate 0 Reviewers, Gate 1 Reviewers, Gate 2 Reviewers) are missing, empty, or contain default placeholders (`<email@domain.com>`, `<Name>`), the system prompts the user to input real names and emails for all 3 PR gates and updates `.ai-context/project_context.md` and `.ai-context/constitution.md` automatically!
 
 ---
 
@@ -867,6 +869,58 @@ Executable automated tests belong under:
 
 ---
 
+# MANDATORY STEP 5 — Automated CodeGraph Auto-Installation & Project Dependencies Setup Protocol
+
+During INT Project Setup (`/int-project-setup`), the system MUST automatically verify, auto-install, and configure CodeGraph and its runtime dependencies for the project environment.
+
+## Setup & Automated Installation Flow:
+
+1. **Automated Detection & Installation**:
+   - Inspect environment for CodeGraph CLI / MCP server (`codegraph --version`).
+   - Validate version compatibility with the INT SDD workflow.
+   - **Auto-Installation Mandate**: If CodeGraph is missing or unavailable:
+     - For Node.js / JavaScript / TypeScript projects: Execute `npm install -g @codegraph/cli` (or `npm install --save-dev @codegraph/cli`).
+     - For Python projects: Execute `pip install codegraph-mcp` (or `poetry add --group dev codegraph-mcp`).
+     - For other technology stacks: Download/install the corresponding CodeGraph native CLI / MCP package.
+     - Auto-install required runtime parser dependencies (`sqlite3`, language AST parsers).
+
+2. **Automated Project MCP Server Configuration**:
+   - Auto-generate or update `.mcp/config.json` (or vendor equivalent `.gemini/mcp_config.json` / `.claude/mcp_config.json`):
+     ```json
+     {
+       "mcpServers": {
+         "codegraph": {
+           "command": "codegraph",
+           "args": ["mcp", "serve"],
+           "env": {
+             "CODEGRAPH_DB_PATH": ".ai-context/codegraph.sqlite"
+           }
+         }
+       }
+     }
+     ```
+
+3. **Project State Classification & Initial Indexing Execution**:
+   - **Greenfield Project** (No existing source code implementation): Initialize project CodeGraph SQLite file (`.ai-context/codegraph.sqlite`) with a minimal empty schema without treating an empty graph as an error.
+   - **Legacy / Ongoing Project** (Existing codebase detected): Immediately execute automated initial indexing on disk via terminal:
+     `codegraph index --force --db .ai-context/codegraph.sqlite`
+     This indexing operation MUST complete BEFORE reverse engineering (`int-reverse-engine-workflow`) or SDD planning begins.
+
+4. **Record Metadata in Project Context**:
+   - Record CodeGraph configuration in `.ai-context/project_context.md`:
+     ```json
+     {
+       "codeGraph": {
+         "enabled": true,
+         "version": "x.x.x",
+         "indexStatus": "READY",
+         "dbPath": ".ai-context/codegraph.sqlite",
+         "lastSyncAt": "YYYY-MM-DD HH:mm:ss",
+         "syncMode": "incremental"
+       }
+     }
+     ```
+
 
 # Required Project Information Collection & Governance Validation Protocol
 
@@ -884,8 +938,9 @@ Do NOT infer, invent, or leave default placeholders (`<Name>`, `<email@domain.co
 8. Deployment target, if known
 9. Architecture style (Default: Modular Monolith + Microservice Ready)
 10. **Governance Aspect & Reviewer Roster Validation (MANDATORY)**:
-    - **Technical Lead / Architect (Gate 2 Reviewer)**: Name & Email
-    - **Project Manager / Product Owner (Gate 1 Reviewer)**: Name & Email
+    - **Gate 0 Reviewer(s) (BRD Review)**: Business Analyst / Project Manager / Product Owner Name & Email
+    - **Gate 1 Reviewer(s) (Spec Review)**: Project Manager / Product Owner / Tech Lead Name & Email
+    - **Gate 2 Reviewer(s) (Code Review)**: Technical Lead / Architect / Senior Developer Name & Email
     - **Senior Software Engineer / Spec Author**: Name & Email
     - **Git Developer Email Alignment (`git config user.email`)**: Confirm developer's authenticated email matches their designated role or assigned reviewer/author roster.
 

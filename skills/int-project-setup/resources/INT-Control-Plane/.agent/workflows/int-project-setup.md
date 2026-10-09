@@ -36,3 +36,10 @@ For the full detailed specification, templates, and execution protocols, see:
    - Execute the CLI generator command via CMD / terminal in non-interactive mode (`npx create-vite`, `npx @nestjs/cli`, `dotnet new`, `django-admin`, `cargo new`, `composer create-project`, `flutter create`, `curl start.spring.io`).
    - Scan generated directory structure from disk (`list_dir`).
    - Dynamically populate `.ai-context/architecture.md` and `.ai-context/project_context.md` with the scanned actual folder hierarchy, entry points, and module boundaries.
+
+5. **Automated CodeGraph Auto-Installation & Project Dependencies Setup**:
+   - Inspect environment for CodeGraph CLI / MCP server (`codegraph --version`).
+   - If missing, automatically execute auto-installation of CodeGraph CLI / MCP server and project-level runtime AST dependencies (`@codegraph/cli`, `sqlite3`, tree-sitter parsers) via terminal (`npm install -g @codegraph/cli`, `pip install codegraph-mcp`).
+   - Automatically configure project MCP server (`.mcp/config.json`, `.gemini/mcp_config.json`, `.claude/mcp_config.json`).
+   - Classify project state: **Greenfield** (initialize empty `.ai-context/codegraph.sqlite`) vs **Legacy / Ongoing** (automatically trigger initial indexing `codegraph index --force --db .ai-context/codegraph.sqlite` before reverse engineering).
+   - Record metadata in `.ai-context/project_context.md` (`"codeGraph": { "enabled": true, "indexStatus": "READY", "dbPath": ".ai-context/codegraph.sqlite" }`).

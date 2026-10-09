@@ -37,7 +37,18 @@ Transition Spec Statuses → Released (vX.Y.Z)
 Update .ai-context/status.md Daily Execution Log
        ↓
 Trigger Scripted CI/CD Client Repository Sync
+       ↓
+Execute Post-Release CodeGraph Synchronization (Incremental default / Full rebuild fallback)
 ```
+
+---
+
+# CodeGraph Post-Release Synchronization Protocol
+
+Upon completing release tagging and status updates:
+1. **Incremental Sync**: Execute incremental CodeGraph re-indexing (`codegraph sync --incremental`) to capture codebase AST modifications.
+2. **Full Rebuild Fallback**: If incremental sync fails or encounters corrupted sqlite state, execute a full index rebuild (`codegraph index --force`).
+3. **Non-Silent Failure Handling**: If synchronization fails, do not silently swallow the error. Record `CODEGRAPH_SYNC_STATUS = FAILED (retry pending)` in `.ai-context/status.md` and log error output for retry.
 
 ---
 

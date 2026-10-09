@@ -25,6 +25,20 @@ It analyzes existing source code, database structures, APIs, integrations, confi
 
 ---
 
+# Mandatory CodeGraph Structural Pre-Scan & BRD Correlation Protocol
+
+For existing, ongoing, or legacy codebases:
+1. **CodeGraph Pre-Scan**: Query CodeGraph SQLite (`.ai-context/codegraph.sqlite`) to inspect modules, controllers, services, repositories, models, API routes, call paths, and cross-module dependencies BEFORE drafting requirements.
+2. **BRD + CodeGraph Correlation Matrix**: Compare business requirements against actual implementation evidence to classify requirements into:
+   - **Implemented**: Requirement supported by code.
+   - **Partially Implemented**: Partial functionality exists in code.
+   - **Unimplemented**: Present in BRD but missing in code.
+   - **Undocumented**: Functionality present in code but missing from BRD.
+   - **Conflicting**: Implementation directly contradicts BRD text (`BRD != Code`).
+3. **Traceability Annotations**: Document exact source file, function, module, API route, and implementation status for each reverse-engineered requirement.
+
+---
+
 # Two-Tier Scan Protocol (Minimum Token Consumption)
 
 ```text

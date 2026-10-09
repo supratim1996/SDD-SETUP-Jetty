@@ -18,7 +18,7 @@ The `/int-project-resume` workflow is the **authoritative entry point for resumi
 ```text
 /int-project-resume
        ↓
-Reconstruct Project State Tree (.ai-context/status.md, dashboard.html, project_context.md)
+Reconstruct Project State Tree (.ai-context/status.md, dashboard.html, project_context.md, CodeGraph index status)
        ↓
 Inspect BRD & Gate 0 Review State (.ai-context/BRD.md, pr_reviews/BRD-*.md)
        ├─► [BRD Approved] ──► Prompt: "BRD Approved. Continue to Spec Generation?"

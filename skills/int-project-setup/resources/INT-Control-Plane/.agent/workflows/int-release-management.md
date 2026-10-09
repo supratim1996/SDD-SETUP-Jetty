@@ -49,3 +49,14 @@ Release Notes from Spec Intent
 status.md updated
       ↓
 Git Tag
+      ↓
+CodeGraph Post-Release Sync (incremental default, full rebuild fallback)
+
+---
+
+# 3. CodeGraph Post-Release Synchronization Protocol
+
+1. **Trigger**: Upon successful release version tagging and status board transition, trigger CodeGraph synchronization.
+2. **Incremental Sync**: Attempt incremental re-indexing (`codegraph sync --incremental`) to capture code AST changes.
+3. **Full Rebuild Fallback**: If incremental sync fails or detects structural schema corruption, automatically fallback to a full index rebuild (`codegraph index --force`).
+4. **Non-Silent Failure Logging**: CodeGraph sync failures MUST NOT fail silently. Log error details and record `CODEGRAPH_SYNC_STATUS = FAILED (retry pending)` in `.ai-context/status.md`.

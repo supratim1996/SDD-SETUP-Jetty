@@ -53,6 +53,8 @@ Test Suite Validation
        ↓
 Gate 2 — Post-Hoc Code Review
        ↓
+CodeGraph Synchronization (Incremental Sync)
+       ↓
 Retro-Documentation & Status Update
        ↓
 Release Integration (vX.Y.Z)

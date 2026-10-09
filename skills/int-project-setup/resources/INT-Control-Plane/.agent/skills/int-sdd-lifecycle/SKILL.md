@@ -85,8 +85,9 @@ Draft → In Peer Review (Gate 1) → Changes Requested ↺
 - **Developer Work Selection**: Once specs receive Gate 1 approval, present the eligible approved specs to the developer to select which one to work on.
 - **Reviewer Detection on Git Pull**: Identify user Git credentials (`git config user.name`/`user.email` or configured User ID). If assigned as reviewer for pending specs, prompt with options: `Review Pending Specs` or `Work on Approved Specs`.
 - **Git & Local Reviewer Validation**: Validate authenticated user matches assigned reviewer before official approval/rejection. In local-only mode, capture reviewer metadata without failing Git validation.
-- **Plan, Tasks & Tests Generation**: Only after Gate 1 approval is granted, create `.plan.md`, `.tasks.md`, and `.test_cases.md`.
+- **Plan, Tasks & Tests Generation**: Only after Gate 1 approval is granted, create `.plan.md`, `.tasks.md`, and `.test_cases.md`. Before creating tasks or implementation, perform CodeGraph impact analysis (`.ai-context/codegraph.sqlite`) to inspect existing call paths and module dependencies.
 - **TDD RED before GREEN**: Write failing executable tests (`tests/`) first and confirm RED before writing implementation code (GREEN).
+- **Mandatory Task-to-Code Traceability Annotations**: Generated implementation functions, methods, and classes MUST include structured JSDoc/Docstring traceability headers (`@task`, `@requirement`, `@spec`, `@description`).
 - **Complete Development Before Gate 2**: All feature development tasks must be executed and test suites run to confirm 100% PASS before triggering Gate 2 review.
 - **Gate 2 HALT**: After development is complete and tests pass GREEN, halt and perform Gate 2 code review using the standardized Gate 2 template.
 - **Dashboard & Spec Synchronization**: Gate 1 and Gate 2 approval/rejection updates both Dashboard HTML (complete record) and Spec (current status) simultaneously.
